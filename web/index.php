@@ -263,8 +263,7 @@ function manageToken() {
 
 // 生成M3U8播放列表
 function generateM3U8($channelId, $token) {
-    $upstream = getUpstream();
-    $authUrl = $upstream . "$channelId/playlist.m3u8?" . http_build_query([
+    $authUrl = CONFIG['upstream'] . "$channelId/playlist.m3u8?" . http_build_query([
         'tid'  => 'mc42afe745533',
         'ct'   => intval(time() / 150),
         'tsum' => md5("tvata nginx auth module/$channelId/playlist.m3u8mc42afe745533" . intval(time() / 150))
@@ -287,8 +286,7 @@ function generateM3U8($channelId, $token) {
 
 // 代理TS流
 function proxyTS($channelId, $tsFile) {
-    $upstream = getUpstream();
-    $url = $upstream . "$channelId/$tsFile";
+    $url = CONFIG['upstream'] . "$channelId/$tsFile";
     $data = fetchUrl($url);
     
     if ($data === null) {
